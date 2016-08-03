@@ -30,7 +30,7 @@ suites:
     driver:
       network:
         - ["private_network", {ip: "192.168.33.35"}]
-        - ["forwarded_port", {guest: 80, host: 8080}]
+        - ["forwarded_port", {guest: 80, host: 8081}]
     run_list:
       - recipe[sansapp::web_node]
     attributes:
