@@ -1,6 +1,6 @@
 # sansapp
 
-This cookbook contains can run a cluster with a nginx load-balancer and two backend servers. The cookbook is developed and run with Test Kitchen. The procedure to run the whole cluster is the following:
+This cookbook can run a cluster with a nginx load-balancer and two backend servers. The cookbook is developed and run with Test Kitchen. The procedure to run the whole cluster is the following:
 
 1. Start the first two backend servers.
 2. Start the web node (nginx).
@@ -11,7 +11,7 @@ You can de-provision the cluster by running:
 ```bash
 bundle exec kitchen destroy
 ```
-The script to automate all the steps above is test.sh and it can be found in the root of this cookbook (a the same level of this file).
+The script to automate all the steps above is test.sh and it can be found in the root of this cookbook (a the same level as this file is).
 
 I had many issues to run three servers with Test Kitchen, the issue was a bug in Vagrant. Please check that you are running Vagrant 1.8.5.
 
@@ -21,11 +21,11 @@ I assume you are using OSX, with ChefDk (latest version) and Ruby 2.3.1.
 
 Cookbook details
 ----------------
-There are two recipes, one per each server type. IP numbers are setup in .kitchen.yml and the IPs are passed as Chef attributes to the cookbook to configure nginx. The Go code if fetched from another repository (git@github.com:rtacconi/sans_code.git) to make the cookbook a little bit more realistic.
+There are two recipes, one per each server type. IP numbers are setup in .kitchen.yml and the IPs are passed as Chef attributes to the cookbook to configure nginx. The Go code is fetched [from another repository](git@github.com:rtacconi/sans_code.git) to make the cookbook a little bit more realistic.
 
 A systemd init script controls the Go script which runs the 'Hello World' example.
 
-Value are repeated over the cookbook and they should go in the attributes file (DRY), however due to time constraint I will leave as it is. I did not have the time to run Rubocop and Foodcritic.
+Values are repeated over the cookbook and they should go in the attributes file (DRY), however due to time constraint I will leave as it is. I did not have the time to run Rubocop and Foodcritic.
 
 The final test is run from the test.sh script and it is the following:
 
