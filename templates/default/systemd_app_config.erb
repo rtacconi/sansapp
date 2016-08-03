@@ -1,0 +1,18 @@
+[Unit]
+# This file is managed by Chef. Any manual change will be overwritten.
+Description=Go app
+After=syslog.target # dependencies
+After=network.target
+
+[Service]
+Type=simple
+User=vagrant
+Group=vagrant
+WorkingDirectory=/home/vagrant/app
+Restart=always # always restart on abnormal termination
+# Note that first argument must be an absolute path, rest are arguments to it
+ExecStart=/home/vagrant/app/server.sh
+TimeoutSec=60 # startup/shutdown grace period
+
+[Install]
+WantedBy=multi-user.target # inject dependency

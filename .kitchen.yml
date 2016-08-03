@@ -1,0 +1,39 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+
+suites:
+  - name: app_node1
+    driver:
+      network:
+        - ["private_network", {ip: "192.168.33.33"}]
+    run_list:
+      - recipe[sansapp::application]
+    attributes:
+  - name: app_node2
+    driver:
+      network:
+        - ["private_network", {ip: "192.168.33.34"}]
+    run_list:
+      - recipe[sansapp::application]
+    attributes:
+  - name: web_node
+    driver:
+      network:
+        - ["private_network", {ip: "192.168.33.35"}]
+        - ["forwarded_port", {guest: 80, host: 8080}]
+    run_list:
+      - recipe[sansapp::web_node]
+    attributes:
+      backends:
+        - "192.168.33.33:8484"
+        - "192.168.33.34:8484"

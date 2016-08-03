@@ -1,0 +1,43 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+- name: app-server1
+  run_list:
+  - recipe[sansapp::application]
+  driver_config:
+    customize:
+      memory: 1024
+    network:
+      - ['private_network', {ip: '192.168.33.33'}]
+
+- name: app-server2
+  run_list:
+  - recipe[sansapp::application]
+  driver_config:
+    customize:
+      memory: 1024
+    network:
+      - ['private_network', {ip: '192.168.33.34'}]
+
+
+- name: web-server
+  run_list:
+  - recipe[sansapp::web_node]
+  driver_config:
+    network:
+      - ['private_network', {ip: '192.168.33.53'}]
+
+suites:
+  - name: web_node
+    run_list:
+      - recipe[sansapp::application]
+      - recipe[sansapp::web_node]
+    attributes:

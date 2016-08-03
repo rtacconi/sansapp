@@ -1,0 +1,14 @@
+# File generated with Chef all manual changes will be overwritten
+
+upstream backend  {
+ <% @backends.each do |backend| %>
+   server <%= backend %>;
+ <% end %>
+ # it defaults to round-robin
+}
+
+server {
+  location / {
+    proxy_pass  http://backend;
+  }
+}
